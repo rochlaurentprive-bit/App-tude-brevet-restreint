@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#041326">
+<title>Brevet restreint – Entraînement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg0:#041326;--bg1:#0a2a4a;--g:rgba(255,255,255,.07);--gb:rgba(255,255,255,.13);--tx:#eaf4ff;--mut:#8fb0cc;--ac:#38d6ff;--ac2:#5b8cff;--gold:#ffc857;--ok:#3ddc97;--ko:#ff5d6c;--c:#38d6ff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:var(--bg0);color:var(--tx);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif}
+body{background:radial-gradient(900px 500px at 85% -5%,rgba(60,130,220,.35),transparent 60%),radial-gradient(700px 500px at -10% 30%,rgba(20,170,200,.18),transparent 60%),linear-gradient(180deg,#041326,#071d36 55%,#041326);background-attachment:fixed}
+h1,h2,h3,.disp{font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;letter-spacing:-.02em;margin:0}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+#screen{max-width:560px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 14px calc(110px + env(safe-area-inset-bottom))}
+.in{animation:rise .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.glass{background:var(--g);border:1px solid var(--gb);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:22px}
+.sec{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:700;margin:22px 4px 10px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:20px 18px 74px;background:linear-gradient(145deg,#0d4a85 0%,#0b6fb0 45%,#18a6d6 100%);box-shadow:0 18px 40px -14px rgba(24,166,214,.5)}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(255,255,255,.28),transparent 40%)}
+.hero-top{display:flex;justify-content:space-between;gap:10px;position:relative}
+.hi{font-size:14px;opacity:.85}
+.hero h1{font-size:30px;line-height:1.05;margin-top:4px;font-weight:800}
+.flame{background:rgba(0,0,0,.25);border-radius:18px;padding:8px 12px;text-align:center;min-width:64px;height:fit-content;filter:grayscale(1);opacity:.8}
+.flame.on{filter:none;opacity:1;box-shadow:0 0 22px rgba(255,150,40,.55)}
+.flame span{font-size:22px;display:block;line-height:1}.flame b{font-size:20px;font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:block;line-height:1.1}.flame small{font-size:10px;opacity:.8}
+.rank{position:relative;display:flex;gap:12px;align-items:center;margin-top:18px;background:rgba(3,22,44,.4);border-radius:18px;padding:10px 12px}
+.rk-i{font-size:30px;width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.rk-b{flex:1;min-width:0}.rk-n{display:flex;justify-content:space-between;gap:8px;font-size:13px;align-items:baseline}.rk-n b{font-size:16px;font-family:"Bricolage Grotesque"}.rk-n span{opacity:.8;font-size:12px}
+.xpbar{height:8px;background:rgba(255,255,255,.2);border-radius:8px;overflow:hidden;margin-top:7px}.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#ff9f43);border-radius:8px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.waves{position:absolute;left:0;bottom:-2px;width:200%;height:70px;animation:wave 9s linear infinite}
+.waves.w2{opacity:.5;animation-duration:14s;animation-direction:reverse;bottom:4px}
+@keyframes wave{to{transform:translateX(-50%)}}
+.boat{position:absolute;right:26px;bottom:34px;font-size:34px;animation:bob 3.4s ease-in-out infinite;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
+@keyframes bob{50%{transform:translateY(-7px) rotate(5deg)}}
+
+/* cta + cards */
+.cta{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:16px 18px;margin-top:14px;border-radius:22px;background:linear-gradient(120deg,var(--gold),#ff9f43);color:#3a1d00;box-shadow:0 14px 30px -12px rgba(255,159,67,.7);transition:transform .15s}
+.cta:active{transform:scale(.97)}
+.cta .big{font-size:30px}.cta b{font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:19px;display:block}.cta small{font-size:13px;opacity:.8}.cta .go{margin-left:auto;font-size:22px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.stat{padding:14px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.stat small{color:var(--mut);font-size:12.5px;line-height:1.25}
+.ringw{position:relative;width:92px;height:92px}.ringw svg{transform:rotate(-90deg)}
+.ringw .t{position:absolute;inset:0;display:grid;place-items:center;font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;font-size:20px}
+.ringw circle.v{animation:ringin 1.2s cubic-bezier(.2,.8,.2,1)}
+@keyframes ringin{from{stroke-dashoffset:var(--c0)}}
+.row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 16px;margin-top:10px;transition:transform .15s}
+.row:active{transform:scale(.97)}.row .em{font-size:26px;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.1);flex:none}
+.row b{display:block;font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px}.row small{color:var(--mut);font-size:13px}.row .ch{margin-left:auto;opacity:.5;font-size:20px}
+.row[disabled]{opacity:.4;pointer-events:none}
+.tipcard{padding:16px;margin-top:12px;border-left:4px solid var(--gold)}.tipcard small{color:var(--gold);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:11.5px}.tipcard p{margin:6px 0 0;font-size:15.5px}
+
+/* tab bar */
+#tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));width:min(540px,calc(100% - 20px));display:flex;padding:6px;border-radius:26px;background:rgba(8,30,56,.78);border:1px solid var(--gb);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:20;box-shadow:0 14px 30px -10px #000}
+#tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 0;border-radius:20px;font-size:11.5px;color:var(--mut);transition:all .25s}
+#tabs button span{font-size:21px;transition:transform .25s}
+#tabs button.on{background:rgba(56,214,255,.16);color:var(--ac)}#tabs button.on span{transform:translateY(-2px) scale(1.12)}
+
+/* learn */
+.lc{display:flex;gap:14px;align-items:center;width:100%;text-align:left;padding:14px;margin-top:10px;position:relative;overflow:hidden}
+.lc:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.lc .em{font-size:26px;width:50px;height:50px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,transparent);flex:none}
+.lc b{font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;display:block}.lc small{color:var(--mut);font-size:13px}
+.lc .ck{margin-left:auto;font-size:18px}
+
+/* train map */
+.chips{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:11px 16px;border-radius:30px;font-weight:700;font-size:14px;background:var(--g);border:1px solid var(--gb);white-space:nowrap}
+.chip[disabled]{opacity:.4}
+.map{position:relative;margin-top:10px}.map svg{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;width:130px;transition:transform .2s}
+.node:active{transform:translate(-50%,-50%) scale(.93)}
+.node .ring{width:84px;height:84px;border-radius:50%;padding:6px;background:conic-gradient(var(--c) calc(var(--p)*1%),rgba(255,255,255,.14) 0);box-shadow:0 0 26px -4px var(--c);animation:pulse 3.2s ease-in-out infinite}
+.node .ic{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--bg1);font-size:32px}
+.node .nm{font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:700;font-size:13.5px;text-align:center;line-height:1.1}
+.node .st{font-size:15px;letter-spacing:2px;color:var(--gold)}.node .st i{font-style:normal;opacity:.25}
+@keyframes pulse{50%{box-shadow:0 0 34px 2px var(--c)}}
+
+/* profile */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{padding:12px 6px;text-align:center}.kpi b{display:block;font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:24px}.kpi small{color:var(--mut);font-size:12px}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bd{padding:12px 6px;text-align:center}.bd .i{font-size:30px;display:block}.bd b{display:block;font-size:12.5px;line-height:1.2;margin-top:4px}.bd small{display:block;font-size:11px;color:var(--mut);line-height:1.25;margin-top:2px}
+.bd.lock{opacity:.4;filter:grayscale(1)}
+.hist{display:flex;justify-content:space-between;padding:9px 2px;border-bottom:1px solid var(--gb);font-size:14px}.hist:last-child{border:0}
+.ghost{display:block;width:100%;margin-top:10px;padding:13px;border-radius:16px;border:1px solid var(--gb);font-weight:600;color:var(--mut);text-align:center}
+.note{font-size:12.5px;color:var(--mut);margin:18px 4px 0;line-height:1.5}
+
+/* overlays */
+#ov{position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,#05172c,#082545 60%,#05172c);overflow-y:auto;display:none}
+#ov.on{display:block}
+@keyframes fade{from{opacity:0}}
+.ovp{max-width:560px;margin:0 auto;min-height:100%;padding:calc(12px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
+.ovtop{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.x{width:38px;height:38px;border-radius:50%;background:var(--g);border:1px solid var(--gb);font-size:16px;flex:none}
+.seg{flex:1;display:flex;gap:4px}.seg i{flex:1;height:7px;border-radius:5px;background:rgba(255,255,255,.14);transition:background .3s}
+.seg i.ok{background:var(--ok)}.seg i.ko{background:var(--ko)}.seg i.cur{background:var(--ac)}.seg i.dn{background:var(--ac2)}
+.combo{font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;font-size:16px;min-width:54px;text-align:right;color:var(--gold)}
+.combo.pop{animation:pop .4s}
+@keyframes pop{40%{transform:scale(1.5)}}
+.tmr{font-variant-numeric:tabular-nums;font-weight:800;font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--g);border:1px solid var(--gb);padding:6px 11px;border-radius:20px;font-size:14px}.tmr.low{color:var(--ko);border-color:var(--ko)}
+.qwrap{flex:1}
+.tag{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:20px;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c)}
+.figs{display:flex;justify-content:center;gap:8px;margin:14px 0 4px;flex-wrap:wrap}
+.figs svg{height:120px;width:auto;background:rgba(255,255,255,.06);border-radius:16px}
+.qtext{font-size:24px;line-height:1.2;font-weight:800;margin:14px 0 18px}
+.opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px;margin-bottom:10px;border-radius:18px;background:var(--g);border:2px solid var(--gb);font-size:16.5px;transition:transform .15s,border-color .2s,background .2s;animation:rise .35s}
+.opt.ok,.opt.dim,.opt.sel{animation:none}
+.opt:active{transform:scale(.98)}
+.ltr{flex:none;width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-weight:800;font-size:14px}
+.opt.sel{border-color:var(--ac);background:rgba(56,214,255,.12)}
+.opt.ok{border-color:var(--ok);background:rgba(61,220,151,.16)}.opt.ok .ltr{background:var(--ok);color:#052}
+.opt.ko{border-color:var(--ko);background:rgba(255,93,108,.16);animation:shake .4s}.opt.ko .ltr{background:var(--ko)}
+.opt.dim{opacity:.45}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.sheet{position:sticky;bottom:0;margin:12px -16px calc(-24px - env(safe-area-inset-bottom));padding:18px 18px calc(22px + env(safe-area-inset-bottom));border-radius:26px 26px 0 0;animation:up .35s cubic-bezier(.2,.8,.2,1);box-shadow:0 -20px 40px -10px rgba(0,0,0,.6)}
+@keyframes up{from{transform:translateY(100%)}}
+.sheet.ok{background:#0d3a35;border-top:2px solid var(--ok)}.sheet.ko{background:#3a1522;border-top:2px solid var(--ko)}.sheet.neutral{background:#0b2a4d;border-top:2px solid var(--ac)}
+.sheet h3{font-size:20px}.sheet.ok h3{color:var(--ok)}.sheet.ko h3{color:var(--ko)}
+.sheet p{margin:8px 0 14px;font-size:15px;line-height:1.5;color:#d5e6f5}
+.prim{display:block;width:100%;padding:15px;border-radius:18px;font-weight:800;font-size:16.5px;background:linear-gradient(120deg,var(--ac),var(--ac2));color:#02213a;text-align:center;box-shadow:0 10px 24px -10px var(--ac);transition:transform .15s}
+.prim:active{transform:scale(.97)}.sheet.ok .prim{background:var(--ok);color:#03281a;box-shadow:none}.sheet.ko .prim{background:var(--ko);color:#fff;box-shadow:none}
+.prim[disabled]{opacity:.4;pointer-events:none}
+.sec2{background:var(--g);border:1px solid var(--gb)}
+.bar2{margin-top:auto;padding-top:14px}
+.xpop{position:fixed;left:50%;top:26%;transform:translateX(-50%);font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;font-size:34px;color:var(--gold);pointer-events:none;animation:xpf 1.1s ease-out forwards;text-shadow:0 4px 20px rgba(0,0,0,.5);z-index:60}
+@keyframes xpf{to{transform:translate(-50%,-90px);opacity:0}}
+.dlg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:70;padding:24px;animation:fade .2s}
+.dlg>div{background:#0b2a4d;border:1px solid var(--gb);border-radius:24px;padding:22px;max-width:340px;width:100%;text-align:center}
+.dlg p{color:var(--mut);margin:8px 0 18px}.dlg .two{margin:0}
+
+/* fiche */
+.fcard{padding:22px 20px;margin-top:6px;border-top:4px solid var(--c);animation:rise .4s}
+.fcard h2{font-size:27px;line-height:1.1;margin:12px 0 14px;font-weight:800}
+.fcard ul{list-style:none;margin:0;padding:0}.fcard li{padding:9px 0 9px 28px;position:relative;font-size:16px;line-height:1.4;border-bottom:1px solid rgba(255,255,255,.07)}
+.fcard li:last-child{border:0}.fcard li:before{content:"›";position:absolute;left:6px;top:6px;font-size:22px;color:var(--c);font-weight:800}
+.mn{margin-top:16px;padding:14px 16px;border-radius:18px;background:linear-gradient(120deg,rgba(255,200,87,.18),rgba(255,159,67,.1));border:1px solid rgba(255,200,87,.35)}
+.mn small{display:block;color:var(--gold);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:11px;margin-bottom:3px}
+.dots{flex:1;display:flex;gap:6px;justify-content:center}.dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s}.dots i.on{background:var(--c);width:24px;border-radius:5px}
+.navr{display:flex;gap:10px;margin-top:auto;padding-top:16px}.navr .prim{flex:1}.navr .back{flex:none;width:56px;border-radius:18px;background:var(--g);border:1px solid var(--gb);font-size:20px}
+
+/* result */
+.res{text-align:center;padding-top:6px}
+.trophy{font-size:68px;animation:bob 3s ease-in-out infinite;display:inline-block}
+.stars{font-size:38px;letter-spacing:6px;color:var(--gold);margin:2px 0}.stars i{font-style:normal;opacity:.22;display:inline-block}.stars i.on{opacity:1;animation:pop .6s backwards}
+.big-n{font-family:"Bricolage Grotesque","Avenir Next","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-weight:800;font-size:64px;line-height:1}
+.chips2{display:flex;gap:10px;justify-content:center;margin:14px 0;flex-wrap:wrap}.chips2 span{padding:8px 14px;border-radius:20px;background:var(--g);border:1px solid var(--gb);font-weight:700;font-size:14px}
+.up{padding:12px;border-radius:18px;background:linear-gradient(120deg,rgba(255,200,87,.25),rgba(255,159,67,.15));border:1px solid rgba(255,200,87,.4);font-weight:700;margin:10px 0}
+.rev{text-align:left;padding:14px;margin-top:10px;border-left:4px solid var(--ko)}.rev b{display:block;font-size:15.5px;line-height:1.3}.rev .g{color:var(--ok);margin-top:6px;font-size:14.5px}.rev .r{color:var(--ko);margin-top:6px;font-size:14px}.rev .e{color:var(--mut);margin-top:6px;font-size:13.5px}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:80}
+#toast{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top));transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:8px;width:min(92%,420px);pointer-events:none}
+.toast{background:#102f55;border:1px solid var(--gold);border-radius:18px;padding:12px 16px;display:flex;gap:12px;align-items:center;animation:drop .5s cubic-bezier(.2,.8,.2,1),fade .4s 3.2s reverse forwards;box-shadow:0 12px 30px -8px #000}
+.toast .i{font-size:28px}.toast small{display:block;color:var(--gold);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+@keyframes drop{from{transform:translateY(-120%)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="screen"></div>
+<nav id="tabs"></nav>
+<div id="ov"></div>
+<div id="toast"></div>
+<canvas id="cf"></canvas>
+<script>
+var THEMES={
+ route:{n:"Règles de route",i:"🧭"},
+ balisage:{n:"Balisage (AISM A)",i:"🔴"},
+ feux:{n:"Feux et signaux",i:"💡"},
+ securite:{n:"Sécurité et secours",i:"🛟"},
+ meteo:{n:"Météo",i:"⛅"},
+ nav:{n:"Navigation et calculs",i:"📐"},
+ manoeuvre:{n:"Manœuvres et matelotage",i:"⚓"},
+ pratique:{n:"Bonnes pratiques",i:"✅"}
+};
+var QS=[];
+function Q(t,q,r,w,e,f){QS.push({t:t,q:q,o:[r].concat(w),e:e,f:f||null});}
+
+/* --- Règles de route --- */
+Q("route","Deux bateaux à moteur se croisent sur des routes qui se coupent. Lequel doit manœuvrer ?","Celui qui voit l'autre bateau à sa droite (tribord)",["Celui qui voit l'autre bateau à sa gauche (bâbord)","Le plus petit des deux","Le plus rapide des deux"],"Règle de la priorité à droite (RIPAM règle 15) : le bateau qui voit l'autre sur son tribord cède le passage et évite de couper sa route devant lui.");
+Q("route","Deux bateaux à moteur se rencontrent face à face (routes inverses). Que fait chacun ?","Chacun vient sur tribord (à droite) et on se croise bâbord contre bâbord",["Chacun vient sur bâbord (à gauche)","Le plus petit s'écarte, l'autre garde son cap","Les deux ralentissent sans changer de cap"],"RIPAM règle 14 : chacun change de cap vers tribord pour passer bâbord contre bâbord.");
+Q("route","Un bateau rattrape et dépasse un autre bateau. Qui doit s'écarter ?","Le bateau qui dépasse, jusqu'à ce qu'il soit complètement passé et dégagé",["Le bateau dépassé, qui doit lui laisser la place","Celui des deux qui a le plus gros moteur","Le bateau qui voit l'autre sur sa droite"],"RIPAM règle 13 : le bateau qui rattrape garde la route libre. Il reste le bateau qui dépasse jusqu'à être définitivement passé et clair.");
+Q("route","Deux voiliers se croisent avec le vent de côtés opposés. Lequel s'écarte ?","Celui qui reçoit le vent par bâbord (amures bâbord)",["Celui qui reçoit le vent par tribord (amures tribord)","Le plus petit des deux","Celui qui est le plus au vent"],"RIPAM règle 12 : amures bâbord cède à amures tribord. L'amure est le côté d'où vient le vent.");
+Q("route","Deux voiliers ont le vent du même côté. Lequel s'écarte ?","Celui qui est au vent (le plus proche de l'origine du vent)",["Celui qui est sous le vent","Le plus rapide","Celui qui est le plus loin de la côte"],"Règle 12 : le voilier au vent cède au voilier sous le vent, qui ne peut pas facilement s'écarter.");
+Q("route","En règle générale, un bateau à moteur croise un voilier (hors chenal étroit et dépassement). Qui s'écarte ?","Le bateau à moteur",["Le voilier","Le plus gros des deux","Le plus lent des deux"],"RIPAM règle 18 : un bateau à moteur s'écarte d'un bateau à voile. Exceptions : dépassement, chenal étroit, dispositif de séparation du trafic.");
+Q("route","Dans un chenal étroit, où doit se tenir un bateau ?","Le plus près possible du bord tribord (à droite) du chenal",["Au milieu du chenal","Le plus près possible du bord bâbord (à gauche)","Du côté où le courant est le plus fort"],"RIPAM règle 9 : dans un chenal étroit on reste à droite, comme sur la route, à condition que ce soit sûr et réalisable.");
+Q("route","De quoi dépend la vitesse de sécurité (règle 6) ?","De la visibilité, de la densité du trafic, de l'état de la mer et de la manœuvrabilité du bateau",["Uniquement de la puissance du moteur","D'une limite fixe de 5 nœuds partout","Uniquement de l'heure du jour"],"La vitesse de sécurité doit permettre d'éviter un abordage et de s'arrêter dans une distance adaptée aux conditions.");
+Q("route","Quand faut-il tenir une veille attentive (règle 5) ?","En permanence, par la vue, l'ouïe et tous les moyens disponibles",["Seulement de nuit","Seulement par brouillard","Inutile si on utilise un GPS ou un radar"],"La veille est obligatoire en toutes circonstances. Les instruments ne remplacent jamais la vue et l'ouïe.");
+Q("route","Comment doit être une manœuvre pour éviter un abordage (règle 8) ?","Franche, prise suffisamment tôt et assez ample pour être vue de l'autre bateau",["Faite de petits changements de cap successifs","Décidée à la dernière seconde","Limitée à un simple changement de vitesse minime"],"Une manœuvre timide ou tardive n'est pas comprise par l'autre bateau et laisse subsister le risque de collision.");
+Q("route","Vous êtes le bateau privilégié (stand-on). Que faites-vous ?","Je maintiens cap et vitesse, mais je manœuvre si l'autre ne fait rien et que l'abordage devient imminent",["Je ralentis toujours pour laisser passer","Je vire à bâbord immédiatement","Je coupe le moteur tout de suite"],"Règle 17 : on maintient route et vitesse, mais on doit agir dès qu'il est clair que l'autre ne manœuvre pas. Quand l'abordage ne peut plus être évité par le seul bateau qui cède, on manœuvre aussi.");
+Q("route","Un bateau de plaisance à moteur doit s'écarter de la route de…","un voilier, un bateau en train de pêcher ou un bateau qui ne maîtrise pas sa manœuvre",["un bateau à moteur plus petit que lui","un bateau à moteur qui arrive par sa bâbord","aucun bateau, le moteur est toujours prioritaire"],"RIPAM règle 18 : ordre de priorité décroissant : bateau qui ne maîtrise pas sa manœuvre, à capacité de manœuvre restreinte, pêche, voile, puis moteur.");
+
+/* --- Balisage --- */
+Q("balisage","Cette bouée cylindrique rouge, vue en venant du large vers le port, marque…","le côté bâbord (gauche) du chenal",["le côté tribord (droite) du chenal","un danger isolé","des eaux saines au centre"],"En région A (Europe), le sens conventionnel du balisage est « en venant du large ». Rouge, cylindrique = bâbord. On la laisse à sa gauche.","port");
+Q("balisage","Cette bouée conique verte, vue en venant du large vers le port, marque…","le côté tribord (droite) du chenal",["le côté bâbord (gauche) du chenal","une zone de baignade","un danger isolé"],"Vert et conique = tribord. On la laisse à sa droite en entrant dans le chenal.","stbd");
+Q("balisage","En remontant un chenal depuis le large, une bouée verte conique se laisse…","à tribord (à droite de son bateau)",["à bâbord (à gauche de son bateau)","indifféremment à droite ou à gauche","toujours au large"],"Les marques latérales tribord (vertes) se laissent à tribord, les rouges à bâbord, dans le sens conventionnel (du large vers le port).");
+Q("balisage","Cette marque cardinale indique…","des eaux navigables au nord de la marque : on passe au nord",["un danger isolé","des eaux navigables au sud de la marque","une zone spéciale"],"Cardinale Nord : noir au-dessus, jaune en dessous, deux cônes noirs pointe en haut. Elle se contourne par le nord.","N");
+Q("balisage","Cette marque cardinale indique…","des eaux navigables à l'est de la marque : on passe à l'est",["des eaux navigables à l'ouest","un danger isolé","des eaux saines tout autour"],"Cardinale Est : noir-jaune-noir, deux cônes base contre base (bases face à face).","E");
+Q("balisage","Cette marque cardinale indique…","des eaux navigables au sud de la marque : on passe au sud",["des eaux navigables au nord de la marque","une épave nouvelle","une zone spéciale"],"Cardinale Sud : jaune au-dessus, noir en dessous, deux cônes noirs pointe en bas.","S");
+Q("balisage","Cette marque cardinale indique…","des eaux navigables à l'ouest de la marque : on passe à l'ouest",["des eaux navigables à l'est de la marque","un danger isolé","le côté tribord d'un chenal"],"Cardinale Ouest : jaune-noir-jaune, deux cônes pointe contre pointe (forme de sablier).","W");
+Q("balisage","Cette bouée noire à bande rouge, avec deux boules noires, signale…","un danger isolé : on la contourne en gardant ses distances",["des eaux saines","une zone de baignade","le côté bâbord d'un chenal"],"Marque de danger isolé : elle est posée sur ou au-dessus d'un danger de petite étendue, les eaux navigables l'entourent.","iso");
+Q("balisage","Cette bouée à rayures verticales rouges et blanches, avec une boule rouge, signale…","des eaux saines : eaux navigables tout autour (milieu de chenal, atterrissage)",["un danger isolé","un côté tribord de chenal","une zone réservée"],"Marque d'eaux saines : on peut passer tout autour d'elle. Elle marque par exemple l'axe d'un chenal ou un atterrissage.","safe");
+Q("balisage","Cette bouée jaune avec une croix jaune en tête est…","une marque spéciale (ex. zone de baignade, câbles, zone réservée)",["une cardinale Nord","un danger isolé","une marque d'eaux saines"],"Les marques spéciales n'aident pas à la navigation mais délimitent une zone particulière. Se renseigner sur la zone qu'elle délimite.","special");
+Q("balisage","Cette bouée à rayures bleues et jaunes verticales signale…","un danger nouveau, par exemple une épave récente",["des eaux saines","une zone de baignade","la limite d'un chenal"],"Marque d'« épave d'urgence » : bleu et jaune, feu alterné bleu/jaune. Elle signale un nouveau danger tant qu'il n'est pas porté sur les cartes.","wreck");
+Q("balisage","Un feu blanc scintillant groupé par 3 sur une marque cardinale indique…","une marque cardinale Est",["une marque cardinale Nord","une marque cardinale Ouest","un danger isolé"],"Les groupes de scintillements imitent un cadran : Est = 3, Sud = 6 + un éclat long, Ouest = 9. Le Nord scintille en continu.");
+
+/* --- Feux et signaux --- */
+Q("feux","De nuit, quels feux montre un bateau à moteur de moins de 50 m en route ?","Un feu de mât blanc, deux feux de côté (rouge à bâbord, vert à tribord) et un feu de poupe blanc",["Seulement un feu blanc visible de tout l'horizon","Seulement un feu rouge et un feu vert","Deux feux rouges superposés"],"RIPAM règle 23 : feu de mât (225°), feux de côté de 112,5° chacun, feu de poupe (135°).");
+Q("feux","Un feu de côté rouge est situé…","à bâbord (côté gauche du bateau)",["à tribord (côté droit du bateau)","à l'arrière","en tête de mât"],"Bâbord = rouge, tribord = vert. Moyen mnémotechnique : « bâbord, rouge, port ».");
+Q("feux","De nuit, un voilier en route de moins de 20 m montre…","des feux de côté et un feu de poupe (ou un feu tricolore en tête de mât)",["un seul feu blanc tout autour","deux feux rouges superposés","un feu vert au-dessus d'un feu blanc"],"Règle 25 : un voilier sous voiles montre les feux de côté et de poupe. S'il utilise son moteur, il est considéré comme un bateau à moteur.");
+Q("feux","De nuit, un bateau au mouillage (moins de 50 m) montre…","un feu blanc visible de tout l'horizon",["un feu rouge et un feu vert","trois feux rouges superposés","deux feux blancs de côté"],"Règle 30 : un bateau au mouillage montre un feu blanc tout autour à l'avant.");
+Q("feux","Deux feux rouges superposés visibles de tout l'horizon indiquent…","un bateau qui ne maîtrise pas sa manœuvre",["un bateau au mouillage","un bateau qui pêche au chalut","un voilier en route"],"Bateau qui n'est pas maître de sa manœuvre : deux feux rouges superposés. Il est prioritaire sur les autres bateaux.");
+Q("feux","Un feu vert au-dessus d'un feu blanc, tous deux visibles de tout l'horizon, indique…","un bateau qui pêche au chalut",["un bateau au mouillage","un voilier","un bateau qui ne maîtrise pas sa manœuvre"],"Chalutier : vert au-dessus de blanc. Autres pêcheurs : rouge au-dessus de blanc.");
+Q("feux","Un son bref à la corne de brume signifie…","« je viens sur tribord »",["« je viens sur bâbord »","« je bats en arrière »","« danger, je ne comprends pas vos intentions »"],"Règle 34 : 1 son bref = tribord, 2 = bâbord, 3 = machine en arrière. Un son bref dure environ 1 seconde.");
+Q("feux","Deux sons brefs à la corne de brume signifient…","« je viens sur bâbord »",["« je viens sur tribord »","« je bats en arrière »","« je suis au mouillage »"],"Règle 34 : 2 sons brefs = je viens sur bâbord.");
+Q("feux","Trois sons brefs signifient…","« je bats en arrière » (ma machine est en marche arrière)",["« je viens sur tribord »","« je suis au mouillage »","« je suis en détresse »"],"3 sons brefs = propulsion en marche arrière.");
+Q("feux","Cinq sons brefs ou plus signifient…","je ne comprends pas vos intentions ou je doute de vos actions : danger de collision",["je suis en détresse et j'appelle les secours","je m'engage dans un chenal","je veux dépasser par tribord"],"Règle 34(d) : signal de doute ou de danger lorsqu'on ne comprend pas les intentions de l'autre bateau.");
+Q("feux","Par visibilité réduite, un bateau à moteur qui fait route émet…","un son prolongé à intervalles de 2 minutes au plus",["deux sons prolongés toutes les 2 minutes","un son bref toutes les 10 secondes","aucun signal si le radar est allumé"],"Règle 35 : un son prolongé (4 à 6 s) au plus toutes les 2 minutes quand le bateau a de l'erre.");
+Q("feux","Par visibilité réduite, un bateau à moteur en route mais stoppé (sans erre) émet…","deux sons prolongés à intervalles de 2 minutes au plus",["un seul son prolongé","trois sons brefs","un son bref toutes les minutes"],"Règle 35 : deux sons prolongés, séparés d'environ 2 secondes, au plus toutes les 2 minutes.");
+
+/* --- Sécurité --- */
+Q("securite","Combien de gilets de sauvetage faut-il à bord ?","Un par personne à bord, adapté à sa taille et à son poids",["Un pour deux personnes","Un seul, pour le skipper","Aucun si tout le monde sait nager"],"Chaque personne doit pouvoir porter un gilet adapté. Le port est recommandé en permanence, obligatoire dans de nombreux cas (enfants, mauvais temps, nuit).");
+Q("securite","Quelqu'un tombe à l'eau. Votre toute première réaction ?","Crier « Homme à la mer ! », lancer une bouée et ne jamais le perdre de vue",["Couper le moteur et sauter à l'eau","Continuer tranquillement et appeler plus tard","Faire demi-tour sans prévenir l'équipage"],"Alerter, lancer un moyen de flottaison, désigner un guetteur qui pointe la personne du doigt. Marquer la position sur le GPS (touche MOB).");
+Q("securite","Quel canal VHF est utilisé pour la détresse et l'appel ?","Le canal 16",["Le canal 6","Le canal 72","Le canal 10"],"Le canal 16 est le canal international d'appel et de détresse. On passe ensuite sur un canal de travail pour la conversation.");
+Q("securite","Que signifie le message radio « Pan-Pan » ?","Message d'urgence : sécurité d'un bateau ou d'une personne en jeu, mais pas de danger grave et imminent",["Message de détresse : danger grave et imminent","Message de sécurité sur la météo","Appel de routine entre bateaux"],"Mayday = détresse. Pan-Pan = urgence. Sécurité = information importante de sécurité (météo, danger pour la navigation).");
+Q("securite","Quel est un signal de détresse reconnu ?","Une fusée à parachute à feu rouge",["Une fusée verte à main","Un pavillon blanc agité","Un coup de corne long"],"Autres signaux : feux rouges à main, fumigène orange, signal SOS, bras levés et baissés lentement, Mayday à la VHF.");
+Q("securite","Que signifie le fait de lever et d'abaisser lentement et à répétition les bras étendus de chaque côté ?","C'est un signal de détresse",["Un salut amical","Je demande un passage","Je m'apprête à mouiller"],"Mouvement lent et répété des bras écartés = signal de détresse visuel reconnu.");
+Q("securite","Début d'incendie dans le compartiment moteur. Que faire en priorité ?","Arrêter le moteur, couper l'arrivée de carburant, utiliser l'extincteur et faire enfiler les gilets",["Ouvrir grand le capot pour voir le feu","Accélérer pour atteindre la côte","Jeter de l'eau sur le moteur avec un seau"],"On évite d'ouvrir largement le compartiment : l'apport d'air attiserait le feu. On utilise l'extincteur par un orifice ou une trappe.");
+Q("securite","Avant de partir en mer, quelle précaution est essentielle ?","Prévenir un proche de l'itinéraire et de l'heure de retour",["Couper la VHF pour économiser la batterie","Partir sans consulter la météo","Éviter d'expliquer le matériel de sécurité"],"Un proche à terre peut donner l'alerte si vous n'êtes pas rentré. Consultez aussi la météo, le carburant, le matériel de sécurité.");
+Q("securite","Tombé à l'eau froide en attente de secours, que faire ?","Rester calme, limiter ses mouvements, garder gilet et vêtements",["Nager vers la côte lointaine","Enlever vêtements et chaussures","Boire de l'alcool pour se réchauffer"],"L'eau froide épuise vite. Les vêtements isolent un peu. Nager disperse la chaleur et accélère l'hypothermie.");
+Q("securite","Sur un petit bateau à moteur hors-bord, à quoi sert le coupe-circuit à cordon ?","À couper le moteur si le pilote est éjecté ou tombe",["À économiser du carburant","À démarrer le moteur plus vite","À régler le régime en croisière"],"Le cordon est attaché au pilote. S'il tombe à l'eau, le moteur s'arrête et le bateau ne tourne pas en cercle.");
+Q("securite","Quel danger présentent les gaz d'échappement dans une cabine fermée ?","Une intoxication au monoxyde de carbone, un gaz inodore et mortel",["Aucun, ces gaz sont inoffensifs","Seulement une odeur désagréable","Un risque de brûlure"],"Le monoxyde de carbone est invisible et sans odeur. Il faut ventiler, surtout avec groupe électrogène ou chauffage.");
+Q("securite","Le mal de mer s'atténue en général en…","restant à l'air frais, au milieu du bateau, en regardant l'horizon",["restant dans la cabine, enfermé","lisant une carte en détail","buvant beaucoup de café"],"L'air frais, la position centrale (moins de mouvement) et l'horizon aident. Prendre la barre est aussi efficace.");
+Q("securite","Une voie d'eau se déclare à bord. Que faire ?","Localiser la brèche, la colmater, pomper, équiper les passagers et appeler les secours si besoin",["Ignorer, tant que le bateau flotte","Mettre tout le monde à l'avant du bateau","Couper la VHF pour économiser la batterie"],"Agir vite : trouver l'entrée d'eau, la boucher, évacuer l'eau, gilets sur tous, et alerter les secours si la situation se dégrade.");
+
+/* --- Météo --- */
+Q("meteo","Force 6 de l'échelle de Beaufort correspond à…","un vent fort d'environ 22 à 27 nœuds",["un vent faible de 1 à 3 nœuds","un vent modéré de 11 à 16 nœuds","un coup de vent de 34 à 40 nœuds"],"Force 4 = 11-16 nds, force 5 = 17-21, force 6 = 22-27, force 7 = 28-33, force 8 = 34-40 (coup de vent).");
+Q("meteo","À partir de quelle force Beaufort parle-t-on de coup de vent ?","Force 8",["Force 5","Force 6","Force 10"],"Force 7 = grand frais, force 8 = coup de vent (34-40 nœuds).");
+Q("meteo","Le baromètre chute rapidement. Que faut-il attendre ?","Une dégradation du temps et un renforcement du vent",["Une amélioration rapide du temps","Un temps inchangé","Un calme plat"],"Une chute de pression rapide annonce l'arrivée d'une dépression, avec vent fort, pluie et mer agitée.");
+Q("meteo","Dans l'hémisphère nord, le vent autour d'une dépression tourne…","dans le sens inverse des aiguilles d'une montre, en convergeant vers le centre",["dans le sens des aiguilles d'une montre","en ligne droite, sans rotation","uniquement du nord vers le sud"],"Autour d'une dépression (hémisphère nord) : sens anti-horaire. Autour d'un anticyclone : sens horaire.");
+Q("meteo","Selon la loi de Buys-Ballot (hémisphère nord), le dos au vent, la dépression se trouve…","sur la gauche",["sur la droite","derrière soi","devant soi"],"Dos au vent, les basses pressions sont à gauche. Cela aide à situer une dépression qui approche.");
+Q("meteo","Un anticyclone est généralement associé à…","un temps plutôt stable, avec peu de nuages",["des pluies fortes et du vent","des orages permanents","un brouillard systématique"],"Hautes pressions : temps plutôt calme et stable (le brouillard est cependant possible).");
+Q("meteo","Au passage d'un front froid, on observe souvent…","des grains, un vent qui se renforce et vire à droite, et une baisse de la température",["un calme plat, un temps chaud","une pression qui chute encore longtemps","un brouillard dense sans vent"],"Passage d'un front froid : grains, rafales, rotation du vent à droite (hémisphère nord), baisse de la température, remontée de la pression.");
+Q("meteo","La brise de mer souffle généralement…","le jour, de la mer vers la terre",["la nuit, de la mer vers la terre","le jour, de la terre vers la mer","uniquement en hiver"],"Le jour, la terre se réchauffe, l'air monte et l'air plus frais de la mer arrive. La nuit, c'est l'inverse (brise de terre).");
+Q("meteo","Quand le vent s'oppose au courant ou à la marée, la mer est…","plus creuse et plus courte, donc plus dangereuse",["plus calme","inchangée","plus longue et plus douce"],"Vent contre courant : les vagues se raidissent et deviennent courtes et abruptes.");
+Q("meteo","Avant de sortir, que faut-il faire ?","Consulter un bulletin météo marine récent et regarder la tendance",["Regarder seulement le ciel depuis le quai","Se fier à la météo de la veille","Partir sans rien vérifier si le matin est beau"],"La météo marine donne vent, rafales, houle, visibilité. Vérifier aussi la tendance sur la durée de la sortie.");
+Q("meteo","Un orage menace en mer. Quelle est la meilleure attitude ?","Rejoindre un abri, réduire la voilure, équiper l'équipage et éviter de toucher les parties métalliques",["Rester au large pour regarder","Monter en haut du mât","Naviguer à pleine vitesse vers le grain"],"Les éclairs et grains sont dangereux. S'abriter, se protéger et éviter les contacts avec le gréement et les mains courantes métalliques.");
+Q("meteo","Par brouillard, que doit faire le skipper ?","Réduire sa vitesse, tenir une veille renforcée et émettre les signaux sonores réglementaires",["Garder sa vitesse pour sortir plus vite du brouillard","Éteindre ses feux pour économiser la batterie","Rester au milieu du chenal sans rien émettre"],"Visibilité réduite : vitesse de sécurité, veille, signaux sonores, feux allumés, et utiliser le radar si disponible.");
+
+/* --- Navigation --- */
+Q("nav","Un mille nautique équivaut à…","1 852 mètres",["1 000 mètres","1 609 mètres","2 000 mètres"],"1 mille nautique = 1 852 m, soit une minute d'arc de latitude.");
+Q("nav","Un nœud correspond à…","un mille nautique par heure",["un kilomètre par heure","un mètre par seconde","un mille terrestre par heure"],"1 nœud = 1 mille nautique/heure, soit environ 1,852 km/h.");
+Q("nav","À 6 nœuds, combien de temps faut-il pour parcourir 3 milles ?","30 minutes",["20 minutes","45 minutes","1 heure"],"Temps = distance / vitesse = 3 / 6 = 0,5 h, soit 30 minutes.");
+Q("nav","Quelle distance parcourt-on à 5 nœuds en 2 h 30 ?","12,5 milles",["10 milles","7,5 milles","15 milles"],"Distance = vitesse × temps = 5 × 2,5 = 12,5 milles.");
+Q("nav","Un cap au 270° correspond à…","l'ouest",["l'est","le sud","le nord"],"0° = nord, 90° = est, 180° = sud, 270° = ouest.");
+Q("nav","Quel est le cap inverse du cap 045° ?","225°",["135°","315°","180°"],"Cap inverse = cap + 180° (ou − 180° si le résultat dépasse 360°). 045 + 180 = 225.");
+Q("nav","La déclinaison magnétique est…","l'angle entre le nord vrai (géographique) et le nord magnétique",["l'écart dû au fer et aux appareils à bord","la différence entre deux caps successifs","la pente du fond marin"],"Elle varie selon le lieu et l'année et figure sur la carte (rose de compas). À ne pas confondre avec la déviation.");
+Q("nav","La déviation du compas est causée par…","les masses métalliques et appareils électriques à bord",["la rotation de la Terre","l'inclinaison du fond marin","la houle"],"Elle dépend du cap suivi et du bateau. Éloigner du compas téléphones, haut-parleurs, outils en fer.");
+Q("nav","Sur une carte marine, une minute de latitude correspond à…","un mille nautique",["un nœud","un kilomètre","dix encablures"],"L'échelle des latitudes (sur les côtés de la carte) sert à mesurer les distances : 1' = 1 mille.");
+Q("nav","Les sondes d'une carte marine sont rapportées…","au zéro des cartes (niveau de référence proche des plus basses mers)",["au niveau moyen de la mer","au niveau des plus hautes mers","au niveau au moment de la sortie"],"La profondeur réelle = sonde + hauteur de marée au moment considéré. Le zéro des cartes est un niveau très bas.");
+Q("nav","Pourquoi garder une marge de profondeur sous la quille ?","Pour les vagues, l'imprécision des sondes, le tangage et les variations de marée",["Parce que la carte ne donne jamais la profondeur","Pour économiser le carburant","Parce que le sondeur est inutile"],"Une marge de sécurité évite l'échouement : prévoir large, surtout dans des eaux peu connues.");
+Q("nav","Les marées de vives-eaux se produisent…","autour de la pleine lune et de la nouvelle lune",["autour des quartiers de lune","uniquement en hiver","uniquement la nuit"],"À pleine et nouvelle lune, Soleil et Lune s'alignent : marnage maximum. Aux quartiers, on a les mortes-eaux.");
+Q("nav","D'après la règle des douzièmes, la 3e heure de marée montante apporte…","3/12 du marnage",["1/12 du marnage","2/12 du marnage","4/12 du marnage"],"Règle des douzièmes : 1/12, 2/12, 3/12, 3/12, 2/12, 1/12 pour les 6 heures de marée.");
+Q("nav","Sur un GPS, que signifie SOG ?","Vitesse sur le fond (Speed Over Ground)",["Cap compas","Vitesse dans l'eau","Profondeur sous quille"],"SOG = vitesse sur le fond. COG = cap sur le fond. Ce ne sont pas ceux du compas ni du loch.");
+
+/* --- Manœuvres --- */
+Q("manoeuvre","Pour accoster, comment aborder le quai ?","Plutôt face au vent ou au courant dominant (le plus fort), à petite vitesse",["Vent ou courant dans le dos, à toute vitesse","En diagonale, à pleine puissance","Peu importe : toujours pareil"],"Face au vent/courant, le bateau garde une meilleure gouverne et ralentit plus facilement. Approcher lentement.");
+Q("manoeuvre","Quelle longueur de chaîne ou de touée faut-il filer au mouillage ?","Au moins 3 à 5 fois la profondeur, plus par mauvais temps",["Égale à la profondeur","1,5 fois la profondeur","10 mètres, toujours"],"Plus la touée est longue, plus l'ancre tient. Prendre en compte la marée et le vent à venir.");
+Q("manoeuvre","Comment mouiller une ancre ?","Arriver face au vent ou au courant, stopper, descendre l'ancre puis reculer en filant la touée",["Jeter l'ancre en pleine vitesse","Mouiller par l'arrière, vent dans le dos","Laisser l'ancre pendre sans la poser"],"On pose l'ancre bateau stoppé, puis on la fait croche en reculant doucement et on vérifie qu'elle tient.");
+Q("manoeuvre","Quelqu'un tombe à tribord d'un bateau à moteur. Quelle barre immédiate ?","Barre à tribord (du côté de la personne) pour écarter l'arrière et l'hélice",["Barre à bâbord, à toute vitesse","Accélérer sans changer de cap","Couper tout, laisser dériver"],"Mettre la barre du côté de la personne écarte la poupe et l'hélice d'elle. Puis faire demi-tour pour revenir.");
+Q("manoeuvre","Avant de hisser une personne tombée à l'eau, que faire du moteur ?","Le mettre au point mort ou l'arrêter pour éviter l'hélice",["Le laisser en marche avant","Passer en marche arrière à fond","Aucune importance"],"L'hélice est un danger majeur pour la personne dans l'eau. Moteur coupé ou au point mort pendant la récupération.");
+Q("manoeuvre","Quel nœud forme une boucle fixe qui ne se resserre pas ?","Le nœud de chaise",["Le nœud plat","Le nœud en huit seul","La demi-clé"],"Le nœud de chaise est fiable, se défait facilement même après avoir été tendu. Le nœud plat sert à joindre deux bouts de même diamètre.");
+Q("manoeuvre","Avant d'arriver à quai, que prépare-t-on ?","Les pare-battages et les amarres, côté d'accostage",["Rien, tout se fait à l'arrivée","Les pare-battages côté large","Seulement l'ancre"],"Anticiper : pare-battages à bonne hauteur, amarres prêtes, équipage informé du plan.");
+Q("manoeuvre","Dans un sas d'écluse, il faut…","suivre les instructions de l'éclusier, utiliser les pare-battages et tenir les amarres sans les bloquer",["amarrer définitivement à un seul point","laisser le moteur à plein régime","passer sans s'amarrer"],"Le niveau de l'eau varie dans le sas. Les amarres doivent pouvoir être filées ou reprises, sans être bloquées.");
+Q("manoeuvre","Au remorquage, comment procéder ?","À petite vitesse, avec une aussière solide fixée à un point résistant",["À pleine vitesse pour aller plus vite","Avec un cordon fin attaché à un hublot","Sans prévenir l'autre bateau"],"Une aussière attachée à un point faible peut arracher la structure. Vitesse lente, surveillance constante, communication claire.");
+Q("manoeuvre","Quel est le danger de l'empannage involontaire ?","La bôme traverse brutalement le cockpit et peut blesser ou casser le matériel",["Le voilier s'arrête net","Le voilier chavire toujours","Il n'y a aucun risque"],"Un empannage involontaire est violent. On empanne volontairement en contrôlant l'écoute de grand-voile.");
+
+/* --- Bonnes pratiques --- */
+Q("pratique","Selon la règle des tiers, comment répartit-on le carburant ?","Un tiers pour l'aller, un tiers pour le retour, un tiers de réserve",["Deux tiers pour l'aller, le reste pour le retour","Tout pour l'aller","Moitié aller, moitié retour, sans réserve"],"Une réserve couvre les imprévus : météo, courant contraire, retour détourné.");
+Q("pratique","Que faut-il vérifier avant de larguer les amarres ?","Météo, carburant, gilets, moyens de communication, matériel de sécurité",["Seulement la couleur du bateau","Seulement l'heure","Rien, on vérifie en mer"],"Une check-list de départ réduit fortement les risques en mer.");
+Q("pratique","Que faire des déchets produits à bord ?","Les rapporter à terre et les trier",["Les jeter à l'eau au large","Les brûler à bord","Les cacher sous les rochers"],"Il est interdit de jeter des déchets à l'eau. Respecter l'environnement est une obligation et une marque de bon marin.");
+Q("pratique","Le conducteur d'un bateau doit…","rester sobre et en état de maîtriser son bateau",["boire pour rester vigilant","laisser quelqu'un d'autre tenir la barre sans le savoir","ne pas s'inquiéter de la fatigue"],"Alcool, drogues et fatigue diminuent les réflexes. Un conducteur de bateau est responsable de la sécurité de tous à bord.");
+Q("pratique","Qui est responsable des dégâts causés par le sillage d'un bateau ?","Le conducteur du bateau qui le produit",["L'autre bateau","La mer","Personne"],"Ralentir à proximité de quais, d'autres bateaux, de zones de baignade et de berges fragiles.");
+Q("pratique","À quoi sert le canal VHF 16 ?","À l'appel et à la détresse : on passe ensuite sur un autre canal pour la conversation",["À discuter longtemps avec les amis","À écouter la météo en continu","À commander au port"],"Le canal 16 doit rester libre pour les urgences. Après l'appel, on bascule sur un canal de travail.");
+Q("pratique","Combien de personnes peut-on embarquer ?","Au maximum le nombre indiqué sur la plaque du constructeur",["Autant que le bateau peut en contenir physiquement","Le double si on porte un gilet","Le nombre qui nous arrange"],"Surcharger un bateau dégrade fortement la stabilité et l'insubmersibilité.");
+Q("pratique","Quel est l'intérêt d'un briefing sécurité avant le départ ?","Que chacun sache où sont les gilets, extincteurs, VHF et comment s'en servir",["Aucun, c'est une perte de temps","Réservé aux équipages professionnels","Seulement utile par temps de brouillard"],"En cas de problème, il n'y a pas le temps d'expliquer. Un équipage informé réagit plus vite.");
+Q("pratique","Un bateau voisin est en détresse. Que faut-il faire ?","Porter assistance, dans la mesure du possible et sans danger grave pour son propre bateau",["Passer son chemin","Filmer sans intervenir","Se contenter d'observer"],"Le devoir d'assistance en mer est une obligation légale et morale. Alerter aussi les secours.");
+Q("pratique","Que signifie le pavillon A (blanc et bleu, queue d'aronde) ?","« J'ai un plongeur en immersion : tenez-vous à distance et à vitesse réduite »",["Je cherche un pilote","Je suis en détresse","J'accepte les communications"],"Le pavillon A du code international signale des plongeurs. Éloigner le bateau et ralentir.");
+Q("pratique","De nuit ou par visibilité réduite, il faut…","réduire sa vitesse et être particulièrement vigilant",["accélérer pour arriver vite","éteindre ses feux de navigation","ne rien changer"],"La vitesse de sécurité dépend de la visibilité. De nuit, les obstacles et autres bateaux se repèrent beaucoup plus tard.");
+
+/* ===== Figures balises ===== */
+function cone(cx,y,dir,h,f){var w=10;return dir==='up'?'<polygon points="'+cx+','+y+' '+(cx-w)+','+(y+h)+' '+(cx+w)+','+(y+h)+'" fill="'+f+'"/>':'<polygon points="'+(cx-w)+','+y+' '+(cx+w)+','+y+' '+cx+','+(y+h)+'" fill="'+f+'"/>';}
+function fig(k){
+ var cx=70,B='#151515',Y='#f2c200',R='#d22b2b',G='#1fa15a',W='#fff',BL='#1f5fbf',bands=null,vert=null,shape='pillar',top='',body=null;
+ if(k==='port'){body=R;shape='can';top='<rect x="60" y="22" width="20" height="26" fill="'+R+'"/>';}
+ else if(k==='stbd'){body=G;shape='cone';top=cone(cx,22,'up',26,G);}
+ else if(k==='N'){bands=[B,Y];top=cone(cx,8,'up',18,B)+cone(cx,30,'up',18,B);}
+ else if(k==='S'){bands=[Y,B];top=cone(cx,8,'down',18,B)+cone(cx,30,'down',18,B);}
+ else if(k==='E'){bands=[B,Y,B];top=cone(cx,8,'up',18,B)+cone(cx,30,'down',18,B);}
+ else if(k==='W'){bands=[Y,B,Y];top=cone(cx,8,'down',18,B)+cone(cx,30,'up',18,B);}
+ else if(k==='iso'){bands=[B,R,B];top='<circle cx="70" cy="16" r="9" fill="'+B+'"/><circle cx="70" cy="37" r="9" fill="'+B+'"/>';}
+ else if(k==='safe'){vert=[R,W,R,W];top='<circle cx="70" cy="28" r="10" fill="'+R+'"/>';}
+ else if(k==='special'){body=Y;top='<path d="M58 14 L82 42 M82 14 L58 42" stroke="'+Y+'" stroke-width="6" stroke-linecap="round"/>';}
+ else if(k==='wreck'){vert=[BL,Y,BL,Y];}
+ var s='<svg viewBox="0 0 140 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bouée"><rect x="0" y="135" width="140" height="25" fill="#1e6fa8" opacity=".55"/><rect x="68" y="50" width="4" height="22" fill="#889"/>'+top;
+ if(shape==='can')s+='<rect x="50" y="70" width="40" height="65" rx="4" fill="'+body+'"/>';
+ else if(shape==='cone')s+='<polygon points="70,66 46,135 94,135" fill="'+body+'"/>';
+ else if(body)s+='<rect x="52" y="70" width="36" height="65" fill="'+body+'"/>';
+ else if(bands){var n=bands.length,h=65/n;for(var i=0;i<n;i++)s+='<rect x="52" y="'+(70+i*h)+'" width="36" height="'+h+'" fill="'+bands[i]+'"/>';}
+ else if(vert){for(var j=0;j<4;j++)s+='<rect x="'+(52+j*9)+'" y="70" width="9" height="65" fill="'+vert[j]+'"/>';}
+ s+='<path d="M0 135 Q20 128 40 135 T80 135 T120 135 T160 135" fill="none" stroke="#7cc4ee" stroke-width="3"/></svg>';
+ return s;
+}
+
+
+/* ===================== Configuration ===================== */
+var COL={route:'#38bdf8',balisage:'#ff6b6b',feux:'#ffd166',securite:'#ff9f43',meteo:'#a78bfa',nav:'#34d399',manoeuvre:'#60a5fa',pratique:'#f472b6'};
+var RANKS=[{x:0,n:'Mousse',i:'🐚'},{x:150,n:'Matelot',i:'⛵'},{x:400,n:'Timonier',i:'🧭'},{x:800,n:'Second',i:'🔱'},{x:1400,n:'Capitaine',i:'👑'}];
+var EXAM_N=30,EXAM_MIN=40,PASS=70,GOAL=10,SESSION_N=10,IV=[0,1,3,7,14];
+var TH=Object.keys(THEMES);
+
+/* ===================== Fiches de cours ===================== */
+var FICHES={
+route:[
+ {t:'La priorité à droite',b:['Deux bateaux à moteur qui se croisent : celui qui voit l\'autre à sa <b>droite (tribord)</b> s\'écarte.','Face à face : <b>chacun vient à droite</b> et on se croise bâbord contre bâbord.','Dépassement : celui qui <b>rattrape</b> garde la route libre, jusqu\'à être complètement passé.','Dans un chenal étroit : on reste le plus près possible du <b>bord tribord</b>.'],tip:'Comme en voiture : bateau à ma droite = je cède.'},
+ {t:'Voile : qui cède à qui ?',b:['Vents de côtés opposés : <b>amures bâbord</b> cède à amures tribord.','Même côté : celui qui est <b>au vent</b> s\'écarte du voilier sous le vent.','Moteur contre voile : <b>le moteur cède</b> (sauf dépassement, chenal étroit).','Le bateau privilégié <b>garde cap et vitesse</b>, mais réagit si l\'autre ne fait rien.'],tip:'Bâbord cède, tribord passe.'},
+ {t:'La hiérarchie des priorités',b:['1. Bateau qui <b>ne maîtrise pas</b> sa manœuvre','2. Bateau à capacité de manœuvre <b>restreinte</b>','3. Bateau qui <b>pêche</b> (avec engins)','4. <b>Voilier</b>','5. <b>Bateau à moteur</b> (il cède à tous les autres)','Toujours : veille permanente, vitesse de sécurité, manœuvre <b>franche et précoce</b>.'],tip:'Plus on est limité dans ses mouvements, plus on est prioritaire.'}],
+balisage:[
+ {t:'Les marques latérales',b:['Vues en venant du <b>large vers le port</b> (région A, Europe).','<b>Bâbord</b> : rouge, forme cylindrique → on la laisse à gauche.','<b>Tribord</b> : verte, forme conique → on la laisse à droite.','Elles bordent les chenaux : on navigue entre les deux.'],tip:'Le vin de PORT est ROUGE : bâbord = rouge.',figs:['port','stbd']},
+ {t:'Les 4 cardinales',b:['Elles disent de quel côté passer : <b>Nord, Est, Sud, Ouest</b> de la marque.','Nord : noir dessus. Sud : noir dessous. Est : noir-jaune-noir. Ouest : jaune-noir-jaune.','Feux blancs : Nord = scintillant continu, Est = 3, Sud = 6 + 1 long, Ouest = 9 (comme un cadran).'],tip:'Les pointes des cônes montrent où est le noir !',figs:['N','E','S','W']},
+ {t:'Les autres marques',b:['<b>Danger isolé</b> : noir à bandes rouges, deux boules → on s\'en écarte.','<b>Eaux saines</b> : rayures rouges et blanches, une boule rouge → eaux navigables tout autour.','<b>Spéciale</b> : jaune, croix → zone particulière (baignade, câbles…).','<b>Épave nouvelle</b> : bleu et jaune → nouveau danger.'],tip:'Noir + rouge = danger. Rouge + blanc = tout va bien autour.',figs:['iso','safe','special','wreck']}],
+feux:[
+ {t:'Les feux de position',b:['Bateau à moteur (<50 m) : feu de <b>mât blanc</b>, feux de côté <b>rouge (bâbord)</b> et <b>vert (tribord)</b>, feu de <b>poupe blanc</b>.','Voilier en route : feux de côté + poupe (ou tricolore en tête de mât).','Au mouillage : un <b>feu blanc</b> visible de tout l\'horizon.'],tip:'Rouge à gauche, vert à droite : comme les bouées !'},
+ {t:'Les feux spéciaux',b:['Ne maîtrise pas sa manœuvre : <b>2 feux rouges</b> superposés.','Capacité de manœuvre restreinte : rouge – blanc – rouge.','Chalutier : <b>vert au-dessus de blanc</b>.','Autre pêcheur : rouge au-dessus de blanc.'],tip:'Rouge = « attention, je ne peux pas manœuvrer ».'},
+ {t:'Signaux sonores',b:['<b>1 son bref</b> : je viens sur tribord.','<b>2 brefs</b> : je viens sur bâbord.','<b>3 brefs</b> : je bats en arrière.','<b>5 brefs</b> : je doute, danger !','Brouillard : moteur en route = 1 son prolongé ; moteur stoppé = 2 prolongés (au plus toutes les 2 min).'],tip:'1 = droite, 2 = gauche, 3 = je recule.'}],
+securite:[
+ {t:'Homme à la mer',b:['<b>Crier</b> « Homme à la mer ! » pour alerter tout le monde.','<b>Lancer</b> une bouée ou un objet flottant immédiatement.','<b>Désigner</b> un guetteur qui ne quitte pas la personne des yeux.','Marquer la position sur le <b>GPS (MOB)</b>.','Barre <b>du côté de la chute</b> pour écarter l\'hélice, puis revenir. Moteur au point mort pour hisser.'],tip:'Crier – Lancer – Pointer du doigt.'},
+ {t:'Donner l\'alerte',b:['<b>Mayday</b> : danger grave et imminent. <b>Pan-Pan</b> : urgence. <b>Sécurité</b> : information de sécurité.','Canal VHF <b>16</b> : appel et détresse.','Message : nom du bateau, <b>position</b>, nature du problème, nombre de personnes à bord.'],tip:'Qui ? Où ? Quoi ? Combien ?'},
+ {t:'Détresse, feu, eau froide',b:['Signaux : <b>fusée à parachute rouge</b>, feu à main rouge, fumigène orange, bras levés et baissés lentement.','Incendie moteur : couper moteur et carburant, extincteur, gilets.','Voie d\'eau : localiser, colmater, pomper.','Eau froide : rester calme, <b>limiter les mouvements</b>, garder gilet et vêtements.'],tip:'Un gilet par personne, et on le porte !'}],
+meteo:[
+ {t:'L\'échelle de Beaufort',b:['Force 4 : 11 à 16 nœuds (brise).','Force 6 : <b>22 à 27 nœuds</b> (vent fort).','Force 7 : 28 à 33 nœuds (grand frais).','Force 8 : <b>34 à 40 nœuds</b> = coup de vent.','Toujours consulter un <b>bulletin marine récent</b> avant de sortir.'],tip:'Force 8 = coup de vent : on reste au port.'},
+ {t:'Pression et vents',b:['Baromètre qui <b>chute vite</b> → dégradation.','Autour d\'une <b>dépression</b> (hémisphère nord) : sens <b>anti-horaire</b>.','<b>Anticyclone</b> : temps plutôt stable.','Buys-Ballot : <b>dos au vent</b>, la dépression est à <b>gauche</b>.'],tip:'Dos au vent, la dépression est à gauche.'},
+ {t:'Fronts, brises, brouillard',b:['Front froid : <b>grains</b>, vent qui vire à droite, baisse de température.','Brise de mer : le jour, <b>de la mer vers la terre</b>.','Vent contre courant : mer <b>plus creuse et courte</b>.','Brouillard : vitesse réduite, veille, signaux sonores.'],tip:'Vent contre courant = vagues en « escalier ».'}],
+nav:[
+ {t:'Unités et calculs',b:['<b>1 mille nautique = 1 852 m</b> = 1 minute de latitude.','<b>1 nœud</b> = 1 mille par heure.','Distance = vitesse × temps. Temps = distance ÷ vitesse.','Ex. : 6 nœuds, 3 milles → 30 min.'],tip:'Triangle D / V×T : on cache ce qu\'on cherche.'},
+ {t:'Caps et compas',b:['0° Nord · 90° Est · 180° Sud · 270° Ouest.','Cap inverse : <b>± 180°</b>.','<b>Déclinaison</b> : écart nord vrai / nord magnétique (lieu, année).','<b>Déviation</b> : écart dû aux masses métalliques et appareils à bord.'],tip:'Déclinaison = la Terre. Déviation = le bateau.'},
+ {t:'Cartes et marées',b:['Sondes rapportées au <b>zéro des cartes</b> (très bas).','Vives-eaux : <b>pleine et nouvelle lune</b>.','Règle des douzièmes : <b>1 – 2 – 3 – 3 – 2 – 1</b>.','SOG = vitesse fond ; COG = cap fond.','Toujours garder une <b>marge sous la quille</b>.'],tip:'1-2-3-3-2-1 : le milieu de la marée va le plus vite.'}],
+manoeuvre:[
+ {t:'Accoster et mouiller',b:['Accoster <b>face au vent ou au courant</b> dominant, à petite vitesse.','Préparer <b>pare-battages et amarres</b> avant d\'arriver.','Touée : <b>3 à 5 fois la profondeur</b> (plus par mauvais temps).','Mouiller face au vent, bateau stoppé, puis reculer en filant.'],tip:'On prépare tout avant d\'arriver, jamais après.'},
+ {t:'Nœuds essentiels',b:['<b>Nœud de chaise</b> : boucle fixe qui ne se resserre pas.','<b>Nœud plat</b> : joindre deux bouts de même diamètre.','<b>Demi-clés</b> : amarrer sur un anneau ou un taquet.'],tip:'Chaise = boucle de sauvetage.'},
+ {t:'Situations particulières',b:['Remorquage : <b>vitesse lente</b>, aussière fixée à un point solide.','Écluse : suivre l\'éclusier, amarres tenues mais <b>jamais bloquées</b>.','Empannage involontaire : la <b>bôme</b> traverse violemment.','Récupérer quelqu\'un : <b>moteur au point mort</b>.'],tip:'Hélice = danger numéro un pour la personne à l\'eau.'}],
+pratique:[
+ {t:'Avant de partir',b:['Vérifier <b>météo</b>, carburant, gilets, VHF, extincteur.','Règle des tiers : <b>aller – retour – réserve</b>.','Prévenir un proche : itinéraire + heure de retour.','Briefing équipage : gilets, extincteur, VHF.'],tip:'Une minute de check-list évite une heure de galère.'},
+ {t:'À bord',b:['Conducteur <b>sobre</b> et vigilant.','Le <b>sillage</b> est de votre responsabilité : ralentir près du port.','Jamais de <b>déchets</b> à l\'eau.','Ne pas dépasser le <b>nombre de personnes</b> admis.','Porter <b>assistance</b> à un bateau en détresse.'],tip:'Bon marin = bon voisin.'},
+ {t:'Communiquer',b:['VHF <b>canal 16</b> : appel, puis canal de travail.','Pavillon <b>A</b> (blanc et bleu) : <b>plongeur à l\'eau</b>, tenez-vous à distance.','De nuit ou par brouillard : <b>vitesse réduite</b>.'],tip:'Le canal 16 est sacré : on le libère vite.'}]
+};
+function nFiches(){var n=0;TH.forEach(function(k){n+=FICHES[k].length;});return n;}
+
+/* ===================== État ===================== */
+var K='brevet-restreint-v2';
+var S={xp:0,streak:0,bestStreak:0,last:'',day:{d:'',n:0},a:{},ex:[],badges:{},read:{},sound:true,bestCombo:0,perfect:0,sessions:0};
+try{
+ var raw=localStorage.getItem(K);
+ if(raw){var p=JSON.parse(raw);for(var kk in p)S[kk]=p[kk];}
+ else{var old=JSON.parse(localStorage.getItem('brevet-restreint-v1')||'null');
+  if(old&&old.a){for(var id in old.a){var o=old.a[id];S.a[id]={box:o.ok?2:0,due:0,n:o.n||1,w:o.w||0,ok:!!o.ok};}S.ex=old.ex||[];}}
+}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(S));}catch(e){}}
+function ymd(t){var d=new Date(t);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function today(){return ymd(Date.now());}
+function effStreak(){return(S.last===today()||S.last===ymd(Date.now()-864e5))?S.streak:0;}
+function todayN(){return S.day.d===today()?S.day.n:0;}
+function touchDay(){
+ var t=today();if(S.day.d!==t)S.day={d:t,n:0};
+ if(S.last!==t){S.streak=(S.last===ymd(Date.now()-864e5))?S.streak+1:1;S.last=t;S.bestStreak=Math.max(S.bestStreak,S.streak);}
+}
+function grade(id,ok){
+ var r=S.a[id]||{box:0,due:0,n:0,w:0};r.n++;
+ if(ok)r.box=Math.min(4,r.box+1);else{r.box=0;r.w++;}
+ r.due=Date.now()+IV[r.box]*864e5;r.ok=ok;S.a[id]=r;
+}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function allIds(){return QS.map(function(q,i){return i;});}
+function themeIds(k){return allIds().filter(function(i){return QS[i].t===k;});}
+function rankIdx(xp){var r=0;RANKS.forEach(function(x,i){if(xp>=x.x)r=i;});return r;}
+function rankInfo(xp){xp=xp==null?S.xp:xp;var i=rankIdx(xp),c=RANKS[i],n=RANKS[i+1];return{cur:c,next:n,p:n?Math.round(100*(xp-c.x)/(n.x-c.x)):100};}
+function stats(){
+ var now=Date.now(),seen=0,due=0,sum=0,wrong=0;
+ QS.forEach(function(q,i){var r=S.a[i];if(r){seen++;sum+=r.box;if(r.due<=now)due++;if(r.ok===false)wrong++;}});
+ return{seen:seen,due:due,unseen:QS.length-seen,ready:Math.round(100*sum/(4*QS.length)),wrong:wrong};
+}
+function themeStat(k){
+ var ids=themeIds(k),sum=0,seen=0;ids.forEach(function(i){var r=S.a[i];if(r){seen++;sum+=r.box;}});
+ var p=Math.round(100*sum/(4*ids.length));
+ return{p:p,seen:seen,n:ids.length,stars:p>=85?3:p>=60?2:p>=30?1:0,master:ids.every(function(i){return S.a[i]&&S.a[i].box>=3;})};
+}
+function pickIds(ids,n){
+ var now=Date.now(),d=[],u=[],o=[];
+ ids.forEach(function(i){var r=S.a[i];if(!r)u.push(i);else if(r.due<=now)d.push(i);else o.push(i);});
+ var byBox=function(a,b){return S.a[a].box-S.a[b].box;};
+ return shuffle(shuffle(d).sort(byBox).concat(shuffle(u),shuffle(o).sort(byBox)).slice(0,n));
+}
+
+/* ===================== Badges ===================== */
+var BADGES=[
+ {id:'first',i:'🚢',n:'Premier départ',d:'Terminer une séance',f:function(){return S.sessions>=1;}},
+ {id:'half',i:'🌊',n:'À mi-chemin',d:'Voir la moitié des questions',f:function(){return stats().seen>=QS.length/2;}},
+ {id:'combo5',i:'🔥',n:'Sans faute ×5',d:'5 bonnes réponses d\'affilée',f:function(){return S.bestCombo>=5;}},
+ {id:'combo10',i:'⚡',n:'Imparable ×10',d:'10 bonnes d\'affilée',f:function(){return S.bestCombo>=10;}},
+ {id:'perfect',i:'💯',n:'Séance parfaite',d:'100 % sur 5 questions ou +',f:function(){return S.perfect>=1;}},
+ {id:'streak3',i:'📅',n:'3 jours de suite',d:'Réviser 3 jours d\'affilée',f:function(){return S.bestStreak>=3;}},
+ {id:'streak7',i:'🏆',n:'Une semaine !',d:'7 jours d\'affilée',f:function(){return S.bestStreak>=7;}},
+ {id:'reader',i:'📚',n:'Bon élève',d:'Lire toutes les fiches',f:function(){return Object.keys(S.read).length>=nFiches();}},
+ {id:'exam',i:'🎓',n:'Examen réussi',d:'Réussir un examen blanc',f:function(){return S.ex.some(function(e){return e.p>=PASS;});}}
+].concat(TH.map(function(k){return{id:'m_'+k,i:THEMES[k].i,n:'Expert',d:THEMES[k].n,f:function(){return themeStat(k).master;}};}));
+function checkBadges(){
+ var nw=[];BADGES.forEach(function(b){if(!S.badges[b.id]&&b.f()){S.badges[b.id]=Date.now();nw.push(b);}});
+ if(nw.length){save();nw.forEach(function(b,i){setTimeout(function(){toast(b.i,'Badge débloqué',b.n+(b.id.indexOf('m_')===0?' · '+b.d:''));sfx('win');},500+i*900);});}
+ return nw;
+}
+function toast(i,s,t){var el=document.createElement('div');el.className='toast';el.innerHTML='<span class="i">'+i+'</span><div><small>'+s+'</small><b>'+t+'</b></div>';$('#toast').appendChild(el);setTimeout(function(){el.remove();},3800);}
+
+/* ===================== Son, vibration, confettis ===================== */
+var AC=null;
+function beep(f,t,d,type,v){var o=AC.createOscillator(),g=AC.createGain();o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.07,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.02);}
+function sfx(k){
+ if(!S.sound)return;
+ try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var n=AC.currentTime;
+  if(k==='ok'){beep(660,n,.12);beep(990,n+.09,.2);}
+  else if(k==='ko'){beep(200,n,.28,'sawtooth',.05);}
+  else if(k==='win'){[523,659,784,1047].forEach(function(f,i){beep(f,n+i*.11,.22);});}
+  else if(k==='tap'){beep(520,n,.05);}
+ }catch(e){}
+}
+function vib(p){try{if(S.sound&&navigator.vibrate)navigator.vibrate(p);}catch(e){}}
+function confetti(){
+ try{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;}catch(e){}
+ var c=$('#cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ var cols=['#ffc857','#38d6ff','#ff6b6b','#3ddc97','#a78bfa','#fff'],P=[],i;
+ for(i=0;i<140;i++)P.push({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,s:6+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[i%cols.length]});
+ var f=0;(function loop(){x.clearRect(0,0,c.width,c.height);
+  P.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.04;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);x.restore();});
+  if(++f<240)requestAnimationFrame(loop);else x.clearRect(0,0,c.width,c.height);})();
+}
+function countUp(el,to,ms,suffix){var t0=null;suffix=suffix||'';function st(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/ms);el.textContent=Math.round(to*(1-Math.pow(1-p,3)))+suffix;if(p<1)requestAnimationFrame(st);}requestAnimationFrame(st);}
+
+/* ===================== Helpers UI ===================== */
+function $(s){return document.querySelector(s);}
+function ring(p,size,col,txt){
+ var r=size/2-8,c=2*Math.PI*r;
+ return '<div class="ringw" style="width:'+size+'px;height:'+size+'px"><svg width="'+size+'" height="'+size+'"><circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="9"/><circle class="v" cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+(c*(1-Math.min(100,p)/100))+'" style="--c0:'+c+'"/></svg><div class="t">'+txt+'</div></div>';
+}
+function greet(){var h=new Date().getHours();return h<5||h>=19?'Bonsoir':h<12?'Bonjour':'Bon après-midi';}
+function starsStr(n){return '★★★'.slice(0,n)+'<i>'+'★★★'.slice(0,3-n)+'</i>';}
+
+/* ===================== Écrans principaux ===================== */
+var view='home',scr=$('#screen'),ov=$('#ov'),G=null,F=null,timer=null;
+var TABS=[['home','🏠','Accueil'],['learn','📖','Apprendre'],['train','🗺️','Voyage'],['me','🏅','Profil']];
+
+function render(){
+ $('#tabs').innerHTML=TABS.map(function(t){return '<button data-a="go" data-v="'+t[0]+'" class="'+(view===t[0]?'on':'')+'"><span>'+t[1]+'</span>'+t[2]+'</button>';}).join('');
+ scr.classList.remove('in');void scr.offsetWidth;scr.classList.add('in');
+ scr.innerHTML={home:vHome,learn:vLearn,train:vTrain,me:vMe}[view]();
+ if(view==='home')setTimeout(function(){var b=scr.querySelector('.xpbar i');if(b)b.style.width=b.getAttribute('data-w')+'%';},60);
+}
+
+function vHome(){
+ var s=stats(),rk=rankInfo(),st=effStreak(),dn=Math.min(GOAL,todayN());
+ var tips=[];TH.forEach(function(k){FICHES[k].forEach(function(f){tips.push(f.tip);});});
+ var tip=tips[Math.floor(Date.now()/864e5)%tips.length];
+ var wave='<svg class="waves" viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="#041a33" d="M0 35 Q150 0 300 35 T600 35 T900 35 T1200 35 V70 H0Z"/></svg>';
+ var wave2='<svg class="waves w2" viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="#0a3a63" d="M0 30 Q150 62 300 30 T600 30 T900 30 T1200 30 V70 H0Z"/></svg>';
+ return '<section class="hero"><div class="hero-top"><div><div class="hi">'+greet()+', matelot</div><h1>Prêt à<br>appareiller&nbsp;?</h1></div>'+
+  '<div class="flame '+(st?'on':'')+'"><span>🔥</span><b>'+st+'</b><small>jour'+(st>1?'s':'')+'</small></div></div>'+
+  '<div class="rank"><div class="rk-i">'+rk.cur.i+'</div><div class="rk-b"><div class="rk-n"><b>'+rk.cur.n+'</b><span>'+S.xp+' XP'+(rk.next?' · '+(rk.next.x-S.xp)+' avant '+rk.next.n:' · niveau max')+'</span></div><div class="xpbar"><i style="width:0" data-w="'+rk.p+'"></i></div></div></div>'+
+  wave2+wave+'<div class="boat">⛵</div></section>'+
+  '<button class="cta" data-a="daily"><span class="big">🎯</span><span><b>Séance du jour</b><small>'+(s.due?s.due+' à réviser':'')+(s.due&&s.unseen?' · ':'')+(s.unseen?s.unseen+' nouvelles':'')+(!s.due&&!s.unseen?'Révision libre':'')+'</small></span><span class="go">›</span></button>'+
+  '<div class="two"><div class="glass stat">'+ring(dn/GOAL*100,92,'#ffc857','<span>'+dn+'<small style="font-size:12px;color:var(--mut)">/'+GOAL+'</small></span>')+'<small>Objectif du jour<br>(questions)</small></div>'+
+  '<div class="glass stat">'+ring(s.ready,92,'#38d6ff',s.ready+'%')+'<small>Préparation<br>à l\'examen</small></div></div>'+
+  '<button class="glass row" data-a="exam"><span class="em">📝</span><span><b>Examen blanc</b><small>'+EXAM_N+' questions · '+EXAM_MIN+' min · conditions réelles</small></span><span class="ch">›</span></button>'+
+  '<button class="glass row" data-a="err" '+(s.wrong?'':'disabled')+'><span class="em">🩹</span><span><b>Mes points faibles</b><small>'+(s.wrong?s.wrong+' question'+(s.wrong>1?'s':'')+' à retravailler':'Aucune erreur pour le moment')+'</small></span><span class="ch">›</span></button>'+
+  '<div class="glass tipcard"><small>💡 Astuce du jour</small><p>'+tip+'</p></div>'+
+  '<p class="note">Questions d\'entraînement rédigées pour réviser les grands thèmes. Elles ne sont pas les questions officielles : vérifie la matière d\'examen et le seuil de réussite du SPF Mobilité et Transports.</p>';
+}
+
+function vLearn(){
+ var h='<h1 style="font-size:30px;font-weight:800;margin:6px 4px 2px">Apprendre</h1><p style="color:var(--mut);margin:0 4px 6px">Des fiches courtes et visuelles. Lis, puis teste-toi.</p>';
+ TH.forEach(function(k){
+  var n=FICHES[k].length,r=FICHES[k].filter(function(f,i){return S.read[k+i];}).length;
+  h+='<button class="glass lc" data-a="fiche" data-t="'+k+'" style="--c:'+COL[k]+'"><span class="em">'+THEMES[k].i+'</span><span><b>'+THEMES[k].n+'</b><small>'+n+' fiches · '+r+'/'+n+' lues</small></span><span class="ck">'+(r===n?'✅':'›')+'</span></button>';
+ });
+ return h;
+}
+
+function vTrain(){
+ var s=stats(),xs=[24,72,28,74,25,70,30,72],H=TH.length*136+30,pts=TH.map(function(k,i){return[xs[i%xs.length],70+i*136];});
+ var d='M'+pts[0][0]+' '+pts[0][1];
+ for(var i=1;i<pts.length;i++){var a=pts[i-1],b=pts[i],m=(a[1]+b[1])/2;d+=' C'+a[0]+' '+m+' '+b[0]+' '+m+' '+b[0]+' '+b[1];}
+ var h='<h1 style="font-size:30px;font-weight:800;margin:6px 4px 10px">Le voyage</h1>'+
+  '<div class="chips"><button class="chip" data-a="daily">🎯 Séance du jour</button><button class="chip" data-a="quick">⚡ Mix de 10</button><button class="chip" data-a="exam">📝 Examen blanc</button><button class="chip" data-a="err" '+(s.wrong?'':'disabled')+'>🩹 Points faibles</button></div>'+
+  '<p style="color:var(--mut);margin:6px 4px 0;font-size:14px">Touche une île pour t\'entraîner sur ce thème. Gagne 3 étoiles ★ en maîtrisant les questions.</p>'+
+  '<div class="map" style="height:'+H+'px"><svg viewBox="0 0 100 '+H+'" preserveAspectRatio="none"><path d="'+d+'" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="3" stroke-dasharray="3 8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>';
+ TH.forEach(function(k,i){
+  var t=themeStat(k);
+  h+='<button class="node" data-a="theme" data-t="'+k+'" style="left:'+pts[i][0]+'%;top:'+pts[i][1]+'px;--c:'+COL[k]+';--p:'+t.p+'"><span class="ring"><span class="ic">'+THEMES[k].i+'</span></span><span class="nm">'+THEMES[k].n+'</span><span class="st">'+starsStr(t.stars)+'</span></button>';
+ });
+ return h+'</div>';
+}
+
+function vMe(){
+ var s=stats(),rk=rankInfo(),ok=0,tot=0;
+ QS.forEach(function(q,i){var r=S.a[i];if(r){tot+=r.n;ok+=r.n-r.w;}});
+ var un=BADGES.filter(function(b){return S.badges[b.id];}).length;
+ var h='<div class="glass" style="padding:18px;margin-top:6px;text-align:center"><div style="font-size:54px">'+rk.cur.i+'</div><h1 style="font-size:28px;font-weight:800">'+rk.cur.n+'</h1><div style="color:var(--mut);font-size:14px;margin:2px 0 10px">'+S.xp+' XP'+(rk.next?' · prochain rang : '+rk.next.n+' ('+rk.next.x+' XP)':'')+'</div><div class="xpbar" style="height:10px"><i style="width:'+rk.p+'%"></i></div></div>'+
+  '<div class="grid3" style="margin-top:12px"><div class="glass kpi"><b>'+effStreak()+'</b><small>série en cours</small></div><div class="glass kpi"><b>'+S.bestStreak+'</b><small>record de série</small></div><div class="glass kpi"><b>'+(tot?Math.round(100*ok/tot):0)+'%</b><small>réussite globale</small></div>'+
+  '<div class="glass kpi"><b>'+s.seen+'/'+QS.length+'</b><small>questions vues</small></div><div class="glass kpi"><b>'+S.bestCombo+'</b><small>meilleur combo</small></div><div class="glass kpi"><b>'+S.sessions+'</b><small>séances</small></div></div>'+
+  '<div class="sec">Badges · '+un+'/'+BADGES.length+'</div><div class="badges">'+BADGES.map(function(b){return '<div class="glass bd '+(S.badges[b.id]?'':'lock')+'"><span class="i">'+b.i+'</span><b>'+b.n+'</b><small>'+b.d+'</small></div>';}).join('')+'</div>';
+ if(S.ex.length){h+='<div class="sec">Examens blancs</div><div class="glass" style="padding:6px 16px">';S.ex.slice(-6).reverse().forEach(function(e){h+='<div class="hist"><span>'+e.d+'</span><b style="color:'+(e.p>=PASS?'var(--ok)':'var(--ko)')+'">'+e.s+'/'+e.n+' · '+e.p+'%</b></div>';});h+='</div>';}
+ h+='<button class="ghost" data-a="sound">'+(S.sound?'🔊 Sons et vibrations : activés':'🔇 Sons et vibrations : coupés')+'</button><button class="ghost" data-a="reset">Réinitialiser ma progression</button>';
+ return h;
+}
+
+/* ===================== Actions ===================== */
+document.addEventListener('click',function(e){
+ var b=e.target.closest('[data-a]');if(!b||b.disabled)return;
+ var a=b.getAttribute('data-a'),t=b.getAttribute('data-t'),v=b.getAttribute('data-v'),o=b.getAttribute('data-o');
+ sfx('tap');
+ if(a==='go'){view=v;render();window.scrollTo(0,0);}
+ else if(a==='daily')start('daily',pickIds(allIds(),SESSION_N));
+ else if(a==='quick')start('quick',shuffle(allIds()).slice(0,10));
+ else if(a==='exam')start('exam',shuffle(allIds()).slice(0,EXAM_N));
+ else if(a==='err'){var w=allIds().filter(function(i){return S.a[i]&&S.a[i].ok===false;});start('err',shuffle(w).slice(0,SESSION_N));}
+ else if(a==='theme')start('theme',pickIds(themeIds(t),SESSION_N),t);
+ else if(a==='fiche')openFiche(t,0);
+ else if(a==='close')closeOv();
+ else if(a==='quit')quitDlg();
+ else if(a==='quit-yes'){document.querySelector('.dlg').remove();closeOv();}
+ else if(a==='quit-no')document.querySelector('.dlg').remove();
+ else if(a==='pick')pick(+o);
+ else if(a==='next')nextQ();
+ else if(a==='fprev')openFiche(F.t,F.i-1);
+ else if(a==='fnext')fNext();
+ else if(a==='again')start(G.mode,againIds(),G.theme);
+ else if(a==='retry')start('err',G.wrongIds.slice(0,SESSION_N));
+ else if(a==='sound'){S.sound=!S.sound;save();render();}
+ else if(a==='reset'){if(b.getAttribute('data-c')){S={xp:0,streak:0,bestStreak:0,last:'',day:{d:'',n:0},a:{},ex:[],badges:{},read:{},sound:true,bestCombo:0,perfect:0,sessions:0};save();render();}else{b.setAttribute('data-c','1');b.textContent='Touche encore pour confirmer';}}
+});
+function openOv(h){ov.innerHTML=h;ov.classList.add('on');ov.scrollTop=0;document.body.style.overflow='hidden';}
+function closeOv(){clearInterval(timer);ov.classList.remove('on');ov.innerHTML='';document.body.style.overflow='';G=null;F=null;render();}
+function quitDlg(){var d=document.createElement('div');d.className='dlg';d.innerHTML='<div><h3 style="font-size:22px">Quitter la séance ?</h3><p>Tes réponses déjà validées sont conservées.</p><div class="two"><button class="prim" style="background:var(--g);color:var(--tx);box-shadow:none;border:1px solid var(--gb)" data-a="quit-no">Continuer</button><button class="prim" style="background:var(--ko);color:#fff;box-shadow:none" data-a="quit-yes">Quitter</button></div></div>';document.body.appendChild(d);}
+
+/* ===================== Fiches ===================== */
+function openFiche(k,i){
+ var L=FICHES[k];if(i<0||i>=L.length)return;F={t:k,i:i};
+ var f=L[i],c=COL[k];
+ var figs=f.figs?'<div class="figs">'+f.figs.map(fig).join('')+'</div>':'';
+ var last=i===L.length-1;
+ openOv('<div class="ovp" style="--c:'+c+'"><div class="ovtop"><button class="x" data-a="close">✕</button><div class="dots">'+L.map(function(x,j){return '<i class="'+(j===i?'on':'')+'"></i>';}).join('')+'</div><span style="width:38px"></span></div>'+
+  '<div class="glass fcard"><span class="tag">'+THEMES[k].i+' '+THEMES[k].n+' · fiche '+(i+1)+'/'+L.length+'</span><h2>'+f.t+'</h2>'+figs+'<ul>'+f.b.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul><div class="mn"><small>💡 À retenir</small><b>'+f.tip+'</b></div></div>'+
+  '<div class="navr">'+(i>0?'<button class="back" data-a="fprev">‹</button>':'')+'<button class="prim" data-a="fnext">'+(last?'🚀 Je me teste !':'Suivant ›')+'</button></div></div>');
+ if(!S.read[k+i]){S.read[k+i]=1;S.xp+=5;touchDay();save();checkBadges();}
+}
+function fNext(){var k=F.t,i=F.i;if(i<FICHES[k].length-1)openFiche(k,i+1);else{closeOv();start('theme',pickIds(themeIds(k),SESSION_N),k);}}
+var tsx=0;
+ov.addEventListener('touchstart',function(e){tsx=e.changedTouches[0].clientX;},{passive:true});
+ov.addEventListener('touchend',function(e){if(!F)return;var dx=e.changedTouches[0].clientX-tsx;if(dx<-70)fNext();else if(dx>70&&F.i>0)openFiche(F.t,F.i-1);},{passive:true});
+
+/* ===================== Quiz ===================== */
+function start(mode,ids,theme){
+ if(!ids||!ids.length){return;}
+ clearInterval(timer);
+ G={mode:mode,ids:ids,i:0,theme:theme||null,picks:[],ord:ids.map(function(){return shuffle([0,1,2,3]);}),res:[],combo:0,best:0,xp:0,correct:0,answered:false,sel:null,rk0:rankIdx(S.xp),end:mode==='exam'?Date.now()+EXAM_MIN*60000:0};
+ if(mode==='exam')timer=setInterval(tick,1000);
+ renderQ();
+}
+function againIds(){
+ var m=G.mode;
+ if(m==='exam')return shuffle(allIds()).slice(0,EXAM_N);
+ if(m==='theme')return pickIds(themeIds(G.theme),SESSION_N);
+ if(m==='quick')return shuffle(allIds()).slice(0,10);
+ return pickIds(allIds(),SESSION_N);
+}
+function tick(){
+ if(!G)return;var left=Math.max(0,G.end-Date.now()),el=$('#tm');
+ if(el){var m=Math.floor(left/60000),s=Math.floor(left/1000)%60;el.textContent='⏱ '+m+':'+(s<10?'0':'')+s;el.className='tmr'+(left<300000?' low':'');}
+ if(left<=0)finish();
+}
+function segs(){return G.ids.map(function(x,i){var c=i===G.i?'cur':G.res[i]===true?(G.mode==='exam'?'dn':'ok'):G.res[i]===false?(G.mode==='exam'?'dn':'ko'):(G.mode==='exam'&&G.picks[i]!==undefined?'dn':'');return '<i class="'+c+'"></i>';}).join('');}
+function renderQ(){
+ var id=G.ids[G.i],q=QS[id],ord=G.ord[G.i],exam=G.mode==='exam',c=COL[q.t],L='ABCD';
+ G.answered=false;G.sel=null;
+ openOv('<div class="ovp" style="--c:'+c+'"><div class="ovtop"><button class="x" data-a="quit">✕</button><div class="seg">'+segs()+'</div>'+(exam?'<span class="tmr" id="tm"></span>':'<span class="combo" id="cb">'+(G.combo>1?'🔥×'+G.combo:'')+'</span>')+'</div>'+
+  '<div class="qwrap"><span class="tag">'+THEMES[q.t].i+' '+THEMES[q.t].n+'</span>'+(q.f?'<div class="figs">'+fig(q.f)+'</div>':'')+'<h2 class="qtext">'+q.q+'</h2>'+
+  ord.map(function(oi,p){return '<button class="opt" data-a="pick" data-o="'+oi+'"><span class="ltr">'+L[p]+'</span><span>'+q.o[oi]+'</span></button>';}).join('')+'</div>'+
+  '<div id="sh">'+(exam?'<div class="bar2"><button class="prim" data-a="next" id="nx" disabled>'+(G.i+1<G.ids.length?'Suivant':'Terminer')+'</button></div>':'')+'</div></div>');
+ if(exam)tick();
+}
+function pick(oi){
+ if(!G||G.answered&&G.mode!=='exam')return;
+ var id=G.ids[G.i],q=QS[id],ok=oi===0,opts=ov.querySelectorAll('.opt');
+ if(G.mode==='exam'){
+  G.sel=oi;G.picks[G.i]=oi;
+  opts.forEach(function(b){b.classList.toggle('sel',+b.getAttribute('data-o')===oi);});
+  var nx=$('#nx');if(nx)nx.disabled=false;
+  var sg=ov.querySelectorAll('.seg i')[G.i];if(sg)sg.className='cur';return;
+ }
+ G.answered=true;G.picks[G.i]=oi;G.res[G.i]=ok;grade(id,ok);touchDay();S.day.n++;
+ var gain;
+ if(ok){G.combo++;G.best=Math.max(G.best,G.combo);S.bestCombo=Math.max(S.bestCombo,G.combo);gain=10+Math.min(G.combo-1,5)*2;G.correct++;sfx('ok');vib(15);}
+ else{G.combo=0;gain=2;sfx('ko');vib([40,40,40]);}
+ G.xp+=gain;S.xp+=gain;save();
+ opts.forEach(function(b){var o=+b.getAttribute('data-o');b.disabled=true;if(o===0)b.classList.add('ok');else if(o===oi)b.classList.add('ko');else b.classList.add('dim');});
+ var sg2=ov.querySelectorAll('.seg i')[G.i];if(sg2)sg2.className=ok?'ok':'ko';
+ var cb=$('#cb');if(cb){cb.textContent=G.combo>1?'🔥×'+G.combo:'';cb.classList.remove('pop');void cb.offsetWidth;if(G.combo>1)cb.classList.add('pop');}
+ var pop=document.createElement('div');pop.className='xpop';pop.textContent='+'+gain+' XP';document.body.appendChild(pop);setTimeout(function(){pop.remove();},1100);
+ var msg=ok?(G.combo>=3?'🔥 En feu ! ×'+G.combo:['Bien joué !','Exact !','Bonne réponse !'][G.i%3]):'Pas tout à fait…';
+ $('#sh').innerHTML='<div class="sheet '+(ok?'ok':'ko')+'"><h3>'+(ok?'✅ ':'❌ ')+msg+'</h3><p>'+(ok?'':'<b>Bonne réponse : '+q.o[0]+'</b><br>')+q.e+'</p><button class="prim" data-a="next">'+(G.i+1<G.ids.length?'Continuer':'Voir mon résultat')+'</button></div>';
+ var sh=ov.querySelector('.sheet');if(sh)sh.scrollIntoView({block:'end',behavior:'smooth'});
+}
+function nextQ(){
+ if(!G)return;
+ if(G.mode==='exam'&&G.sel===null)return;
+ if(G.i+1<G.ids.length){G.i++;renderQ();ov.scrollTop=0;}else finish();
+}
+
+/* ===================== Résultat ===================== */
+function finish(){
+ if(!G||G.done)return;G.done=true;clearInterval(timer);
+ var exam=G.mode==='exam',n=G.ids.length,score=0,wrongIds=[],i;
+ if(exam){
+  touchDay();
+  G.ids.forEach(function(id,j){var ok=G.picks[j]===0;if(ok)score++;else wrongIds.push(id);grade(id,ok);});
+  S.day.n+=n;G.xp=score*6;S.xp+=G.xp;
+  var d=new Date();S.ex.push({d:d.toLocaleDateString('fr-BE')+' '+d.toLocaleTimeString('fr-BE',{hour:'2-digit',minute:'2-digit'}),s:score,n:n,p:Math.round(100*score/n)});
+ }else{
+  G.ids.forEach(function(id,j){if(G.res[j]===true)score++;else wrongIds.push(id);});
+ }
+ var p=Math.round(100*score/n),bonus=0;
+ if(!exam&&p===100&&n>=5){bonus=20;S.xp+=20;G.xp+=20;S.perfect++;}
+ S.sessions++;save();
+ G.wrongIds=wrongIds;
+ var newB=checkBadges(),rk1=rankIdx(S.xp),up=rk1>G.rk0,ri=rankInfo();
+ var good=exam?p>=PASS:p>=70,stars=p>=90?3:p>=70?2:p>=40?1:0;
+ var title=exam?(good?'Examen blanc réussi !':'Pas encore, mais tu progresses'):(p===100?'Sans faute !':good?'Belle séance !':'Continue, ça rentre !');
+ var h='<div class="ovp"><div class="ovtop"><button class="x" data-a="close">✕</button><span style="flex:1"></span></div><div class="res">'+
+  '<div class="trophy">'+(good?(p===100?'🏆':'🎉'):'⚓')+'</div><h1 style="font-size:28px;font-weight:800;margin:6px 0">'+title+'</h1>'+
+  '<div class="stars">'+[0,1,2].map(function(s){return '<i class="'+(s<stars?'on':'')+'" style="animation-delay:'+(.3+s*.25)+'s">★</i>';}).join('')+'</div>'+
+  '<div class="big-n"><span id="sc">0</span><span style="font-size:28px;opacity:.6">/'+n+'</span></div>'+
+  '<div style="color:var(--mut);margin-top:4px"><span id="pc">0</span> %'+(exam?' · seuil indicatif '+PASS+' %':'')+'</div>'+
+  '<div class="chips2"><span>+'+G.xp+' XP</span>'+(G.best>=3?'<span>🔥 combo ×'+G.best+'</span>':'')+(bonus?'<span>💯 bonus +20</span>':'')+'</div>'+
+  (up?'<div class="up">🎊 Nouveau rang : '+RANKS[rk1].i+' '+RANKS[rk1].n+' !</div>':'')+
+  '<div class="xpbar" style="height:10px"><i style="width:'+rankInfo(S.xp-G.xp).p+'%"></i></div><div style="font-size:12.5px;color:var(--mut);margin:6px 0 16px">'+S.xp+' XP'+(ri.next?' · '+(ri.next.x-S.xp)+' avant '+ri.next.n:'')+'</div>'+
+  '<button class="prim" data-a="again">Rejouer</button>'+(wrongIds.length&&!exam?'<button class="ghost" data-a="retry">🩹 Refaire mes erreurs ('+wrongIds.length+')</button>':'')+'<button class="ghost" data-a="close">Retour à l\'accueil</button>';
+ if(wrongIds.length){
+  h+='<div class="sec" style="text-align:left">À revoir · '+wrongIds.length+'</div>';
+  G.ids.forEach(function(id,j){if(G.picks[j]===0)return;var q=QS[id],pk=G.picks[j];
+   h+='<div class="glass rev"><b>'+q.q+'</b>'+(pk!==undefined?'<div class="r">Ta réponse : '+q.o[pk]+'</div>':'<div class="r">Sans réponse</div>')+'<div class="g">✔ '+q.o[0]+'</div><div class="e">'+q.e+'</div></div>';});
+ }
+ h+='</div></div>';
+ openOv(h);
+ countUp($('#sc'),score,900);countUp($('#pc'),p,900);
+ var xb=ov.querySelector('.xpbar i');if(xb)setTimeout(function(){xb.style.width=ri.p+'%';},400);
+ if(good){setTimeout(confetti,250);sfx('win');vib([30,50,30]);}
+ if(up)setTimeout(function(){toast(RANKS[rk1].i,'Nouveau rang',RANKS[rk1].n);},900);
+}
+
+render();
+</script>
+</body>
+</html>
