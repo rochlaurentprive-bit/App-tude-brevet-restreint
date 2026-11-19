@@ -16,3 +16,6 @@ La progression est enregistrée localement dans le navigateur.
 
 ## Avertissement
 Les questions sont des questions d'entraînement rédigées pour réviser les grands thèmes ; ce ne sont pas les questions officielles. Se référer à la matière d'examen et au seuil de réussite officiels du SPF Mobilité et Transports.
+
+## APK Android
+Un workflow GitHub Actions (`.github/workflows/build-apk.yml`) compile l'app avec Capacitor et publie `brevet-restreint.apk` dans l'onglet **Releases** à chaque push sur `main`. L'APK est signé avec la clé de debug : pour l'installer, autoriser les « sources inconnues » sur le téléphone.
